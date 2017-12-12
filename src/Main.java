@@ -39,29 +39,11 @@ public class Main {
         //fileFinal.imprimeDatos();
         int semillaFinal = SEMILLA1;
 
-        //AGE sin blx
-        AGE miAGE = new AGE(fileFinal, semillaFinal);
-        miAGE.inicializacion();
-        miAGE.puntuacionesPoblacion();
-        miAGE.ejecucion(20000, 1);
-        miAGE.puntuacionesPoblacion();
+ 
+        AGG miAGG = new AGG(fileFinal,semillaFinal,true);
+        miAGG.ejecucion(10000,10,1.0,false);
+        miAGG.mostrarResultados();
 
-        //AGE con blx
-        AGE miAGE2 = new AGE(fileFinal, semillaFinal);
-        miAGE2.inicializacion();
-        miAGE2.puntuacionesPoblacion();
-        miAGE2.ejecucion(20000, 2);
-        miAGE2.puntuacionesPoblacion();
-/*
-        //AGG sin blx
-        AGG myAGG = new AGG(fileFinal, semillaFinal, false);
-        myAGG.ejecucion(20000);
-        myAGG.mostrarResultados();
 
-        //AGG con blx
-        AGG myAGG2 = new AGG(fileFinal, semillaFinal, true);
-        myAGG2.ejecucion(20000);
-        myAGG2.mostrarResultados();
-*/
     }
 }

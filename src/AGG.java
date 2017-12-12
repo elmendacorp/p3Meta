@@ -1,12 +1,11 @@
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Vector;
+import java.util.*;
 
 public class AGG {
     private HashMap<Integer, Solucion> poblacion;
     private HashMap<Integer, Solucion> poblacionGanadores;
     private Solucion mejor;
     private Greedy miGreedy;
+    private BusquedaLocal miBL;
     private boolean blx;
     private float time;
     private Random rd;
@@ -43,9 +42,10 @@ public class AGG {
     /**
      * Metodo principal del algoritmo genetico generacional con elitismo
      */
-    public void ejecucion(int max) {
+    public void ejecucion(int max, int iteracionesBL, double probabilidadBL, boolean elite) {
         time = System.nanoTime();
         int generacionesSinMejora = 0;
+        int generaciones = 0;
 
         while (evaluaciones < max) {
 
@@ -84,6 +84,28 @@ public class AGG {
                 }
             }
 
+            ++generaciones;
+
+            //parte para la practica 3
+
+            if (generaciones == iteracionesBL) {
+                generaciones = 0;
+                if (elite) {
+                    SortedMap<Integer,Integer> poblacionOrdenada= new TreeMap<>();
+                    //ordenamos la poblacion por puntuacion
+                    for(HashMap.Entry<Integer,Solucion> s:poblacion.entrySet()){
+                        poblacionOrdenada.put(s.getValue().getPuntuacion(),s.getKey());
+                    }
+
+                } else {
+                    for (Solucion s : poblacion.values()) {
+                        if (rd.nextDouble() < probabilidadBL) {
+                            miBL= new BusquedaLocal(s,semilla);
+                            miBL.generaSoluciones(data,200);
+                        }
+                    }
+                }
+            }
             //Reinicializamos si no mejoramos en 20 generacion o el 80% de los individuos son el mismo
             if (generacionesSinMejora >= 20 || (puntuaciones.size() <= poblacionGanadores.size() * 0.2)) {
                 generacionesSinMejora = 0;
