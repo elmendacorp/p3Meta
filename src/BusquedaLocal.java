@@ -102,4 +102,8 @@ public class BusquedaLocal {
             //System.out.println(fr.getId()+"\t"+fr.getFrecuencia());
         }
     }
+
+    public Solucion getSolucionActual(){
+        return solucionActual;
+    }
 }

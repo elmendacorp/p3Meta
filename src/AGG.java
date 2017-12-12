@@ -67,14 +67,7 @@ public class AGG {
             mutacion(poblacionGanadores.get(posMutacion));
             poblacionGanadores.get(posMutacion).calculaRestriccion(data.getRestricciones());
 
-            //Buscamos la mejor solucion, por si hay una nueva
-            Solucion posibleMejor = new Solucion(calculaMejorsolucion(poblacionGanadores.values().toArray()));
-            if (posibleMejor.getPuntuacion() < mejor.getPuntuacion()) {
-                mejor = posibleMejor;
-                generacionesSinMejora = 0;
-            } else {
-                ++generacionesSinMejora;
-            }
+
 
             //Calculamos el numero de individuos diferentes dentro de la poblacion
             Vector<Integer> puntuaciones = new Vector<>();
@@ -93,18 +86,28 @@ public class AGG {
                 if (elite) {
                     SortedMap<Integer,Integer> poblacionOrdenada= new TreeMap<>();
                     //ordenamos la poblacion por puntuacion
-                    for(HashMap.Entry<Integer,Solucion> s:poblacion.entrySet()){
+                    for(HashMap.Entry<Integer,Solucion> s:poblacionGanadores.entrySet()){
                         poblacionOrdenada.put(s.getValue().getPuntuacion(),s.getKey());
                     }
 
                 } else {
-                    for (Solucion s : poblacion.values()) {
+                    for (Solucion s : poblacionGanadores.values()) {
                         if (rd.nextDouble() < probabilidadBL) {
                             miBL= new BusquedaLocal(s,semilla);
                             miBL.generaSoluciones(data,200);
+
                         }
                     }
                 }
+            }
+
+            //Buscamos la mejor solucion, por si hay una nueva
+            Solucion posibleMejor = new Solucion(calculaMejorsolucion(poblacionGanadores.values().toArray()));
+            if (posibleMejor.getPuntuacion() < mejor.getPuntuacion()) {
+                mejor = posibleMejor;
+                generacionesSinMejora = 0;
+            } else {
+                ++generacionesSinMejora;
             }
             //Reinicializamos si no mejoramos en 20 generacion o el 80% de los individuos son el mismo
             if (generacionesSinMejora >= 20 || (puntuaciones.size() <= poblacionGanadores.size() * 0.2)) {
