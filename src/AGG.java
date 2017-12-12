@@ -32,7 +32,7 @@ public class AGG {
      */
     private void inicializacion() {
         miGreedy = new Greedy(data, semilla);
-        for (int i = 0; i < 50; ++i) {
+        for (int i = 0; i < 20; ++i) {
             miGreedy.generaSolucion();
             poblacion.put(i, new Solucion(miGreedy.getSolucion()));
         }
@@ -53,7 +53,7 @@ public class AGG {
             torneoBinario();
 
             //Cruzamiento
-            for (int i = 0; i < 18; i += 2) {
+            for (int i = 0; i < 14; i+=2) {
                 Solucion padre = poblacionGanadores.get(i);
                 Solucion madre = poblacionGanadores.get(i + 1);
                 Solucion hijo1 = new Solucion();
@@ -113,11 +113,11 @@ public class AGG {
             if (generacionesSinMejora >= 20 || (puntuaciones.size() <= poblacionGanadores.size() * 0.2)) {
                 generacionesSinMejora = 0;
                 poblacion.clear();
-                for (int i = 0; i < 50; ++i) {
+                for (int i = 0; i < 20; ++i) {
                     miGreedy.generaSolucion();
                     poblacion.put(i, new Solucion(miGreedy.getSolucion()));
                 }
-                evaluaciones += 50;
+                evaluaciones += 20;
 
                 //Elitismo: si la mejor solución de la generación anterior no sobrevive, sustituye directamente la peor solución de la nueva población
                 int posicionPeor = 0;
