@@ -34,8 +34,15 @@ public class Main2 {
 
             for (Integer in : semillaFinal) {
 
-                //AGG sin blx
-
+                AGG miAGG = new AGG(fl,in,true);
+                miAGG.ejecucion(20000,10,1.0,false);
+                miAGG.mostrarResultados();
+                miAGG = new AGG(fl,in,true);
+                miAGG.ejecucion(20000,10,0.1,false);
+                miAGG.mostrarResultados();
+                miAGG = new AGG(fl,in,true);
+                miAGG.ejecucion(20000,10,0.1,true);
+                miAGG.mostrarResultados();
 
 
                 System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>");

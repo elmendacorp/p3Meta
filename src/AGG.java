@@ -79,27 +79,7 @@ public class AGG {
 
             ++generaciones;
 
-            //parte para la practica 3
 
-            if (generaciones == iteracionesBL) {
-                generaciones = 0;
-                if (elite) {
-                    SortedMap<Integer,Integer> poblacionOrdenada= new TreeMap<>();
-                    //ordenamos la poblacion por puntuacion
-                    for(HashMap.Entry<Integer,Solucion> s:poblacionGanadores.entrySet()){
-                        poblacionOrdenada.put(s.getValue().getPuntuacion(),s.getKey());
-                    }
-
-                } else {
-                    for (Solucion s : poblacionGanadores.values()) {
-                        if (rd.nextDouble() < probabilidadBL) {
-                            miBL= new BusquedaLocal(s,semilla);
-                            miBL.generaSoluciones(data,200);
-
-                        }
-                    }
-                }
-            }
 
             //Buscamos la mejor solucion, por si hay una nueva
             Solucion posibleMejor = new Solucion(calculaMejorsolucion(poblacionGanadores.values().toArray()));
@@ -132,6 +112,34 @@ public class AGG {
             } else {
                 poblacion.clear();
                 poblacion = new HashMap<>(poblacionGanadores);
+            }
+
+            //parte para la practica 3
+
+            if (generaciones == iteracionesBL) {
+                generaciones = 0;
+                if (elite) {
+                    SortedMap<Integer,Integer> poblacionOrdenada= new TreeMap<>();
+                    //ordenamos la poblacion por puntuacion
+                    for(HashMap.Entry<Integer,Solucion> s:poblacion.entrySet()){
+                        poblacionOrdenada.put(s.getValue().getPuntuacion(),s.getKey());
+                    }
+                    for(int i=(int)(poblacion.size()-0.1*poblacion.size());i<poblacion.size();++i){
+                        int pos= poblacionOrdenada.get(poblacionOrdenada.firstKey());
+                        miBL=new BusquedaLocal(poblacion.get(pos),semilla);
+                        miBL.generaSoluciones(data,200);
+                        poblacionOrdenada.remove(poblacionOrdenada.firstKey());
+                    }
+
+                } else {
+                    for (Solucion s : poblacion.values()) {
+                        if (rd.nextDouble() < probabilidadBL) {
+                            miBL= new BusquedaLocal(s,semilla);
+                            miBL.generaSoluciones(data,200);
+
+                        }
+                    }
+                }
             }
         }
         time = System.nanoTime() - time;

@@ -43,6 +43,12 @@ public class Main {
         AGG miAGG = new AGG(fileFinal,semillaFinal,true);
         miAGG.ejecucion(20000,10,1.0,false);
         miAGG.mostrarResultados();
+        miAGG = new AGG(fileFinal,semillaFinal,true);
+        miAGG.ejecucion(20000,10,0.1,false);
+        miAGG.mostrarResultados();
+        miAGG = new AGG(fileFinal,semillaFinal,true);
+        miAGG.ejecucion(20000,10,0.1,true);
+        miAGG.mostrarResultados();
 
 
     }
