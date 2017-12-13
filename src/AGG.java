@@ -63,10 +63,12 @@ public class AGG {
                 evaluaciones += 2;
             }
             //Mutacion
-            int posMutacion = rd.nextInt(poblacionGanadores.values().size());
-            mutacion(poblacionGanadores.get(posMutacion));
-            poblacionGanadores.get(posMutacion).calculaRestriccion(data.getRestricciones());
-
+            for(Solucion s:poblacionGanadores.values()) {
+                if(rd.nextDouble()<0.02){
+                    mutacion(s);
+                    s.calculaRestriccion(data.getRestricciones());
+                }
+            }
 
 
             //Calculamos el numero de individuos diferentes dentro de la poblacion
