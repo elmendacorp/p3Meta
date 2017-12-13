@@ -53,7 +53,7 @@ public class AGG {
             torneoBinario();
 
             //Cruzamiento
-            for (int i = 0; i < 14; i+=2) {
+            for (int i = 0; i < 14; i += 2) {
                 Solucion padre = poblacionGanadores.get(i);
                 Solucion madre = poblacionGanadores.get(i + 1);
                 Solucion hijo1 = new Solucion();
@@ -63,8 +63,8 @@ public class AGG {
                 evaluaciones += 2;
             }
             //Mutacion
-            for(Solucion s:poblacionGanadores.values()) {
-                if(rd.nextDouble()<0.02){
+            for (Solucion s : poblacionGanadores.values()) {
+                if (rd.nextDouble() < 0.02) {
                     mutacion(s);
                     s.calculaRestriccion(data.getRestricciones());
                 }
@@ -80,8 +80,6 @@ public class AGG {
             }
 
             ++generaciones;
-
-
 
             //Buscamos la mejor solucion, por si hay una nueva
             Solucion posibleMejor = new Solucion(calculaMejorsolucion(poblacionGanadores.values().toArray()));
@@ -116,28 +114,29 @@ public class AGG {
                 poblacion = new HashMap<>(poblacionGanadores);
             }
 
-            //parte para la practica 3
+            //Parte para la practica 3
 
             if (generaciones == iteracionesBL) {
                 generaciones = 0;
                 if (elite) {
-                    SortedMap<Integer,Integer> poblacionOrdenada= new TreeMap<>();
-                    //ordenamos la poblacion por puntuacion
-                    for(HashMap.Entry<Integer,Solucion> s:poblacion.entrySet()){
-                        poblacionOrdenada.put(s.getValue().getPuntuacion(),s.getKey());
+                    SortedMap<Integer, Integer> poblacionOrdenada = new TreeMap<>();
+
+                    //Ordenamos la poblacion por puntuacion
+                    for (HashMap.Entry<Integer, Solucion> s : poblacion.entrySet()) {
+                        poblacionOrdenada.put(s.getValue().getPuntuacion(), s.getKey());
                     }
-                    for(int i=(int)(poblacion.size()-0.1*poblacion.size());i<poblacion.size();++i){
-                        int pos= poblacionOrdenada.get(poblacionOrdenada.firstKey());
-                        miBL=new BusquedaLocal(poblacion.get(pos),semilla);
-                        miBL.generaSoluciones(data,200);
+                    for (int i = (int) (poblacion.size() - 0.1 * poblacion.size()); i < poblacion.size(); ++i) {
+                        int pos = poblacionOrdenada.get(poblacionOrdenada.firstKey());
+                        miBL = new BusquedaLocal(poblacion.get(pos), semilla);
+                        miBL.generaSoluciones(data, 200);
                         poblacionOrdenada.remove(poblacionOrdenada.firstKey());
                     }
 
                 } else {
                     for (Solucion s : poblacion.values()) {
                         if (rd.nextDouble() < probabilidadBL) {
-                            miBL= new BusquedaLocal(s,semilla);
-                            miBL.generaSoluciones(data,200);
+                            miBL = new BusquedaLocal(s, semilla);
+                            miBL.generaSoluciones(data, 200);
 
                         }
                     }

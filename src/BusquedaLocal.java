@@ -56,9 +56,9 @@ public class BusquedaLocal {
         while (contador < iteraciones) {
             FrecAsignada actual = it.next();
             int rangoTransmisor = datos.getTransmisores().get(actual.getId()).getRango();
-            for(Integer fr:datos.getFrecuencias().get(rangoTransmisor).getFrecuencias()) {
+            for (Integer fr : datos.getFrecuencias().get(rangoTransmisor).getFrecuencias()) {
                 ++contador;
-                if(contador>iteraciones){
+                if (contador > iteraciones) {
                     break;
                 }
                 int nuevaPuntuacion = solucionActual.recalcular(datos, actual.getId(), fr, solucionActual);
@@ -97,13 +97,13 @@ public class BusquedaLocal {
      * Funcion para mostrar los resultados
      */
     public void getResultados() {
-        System.out.println("Busqueda Local: "+solucionActual.getPuntuacion() + " " + time / 1000000 + " ms");
+        System.out.println("Busqueda Local: " + solucionActual.getPuntuacion() + " " + time / 1000000 + " ms");
         for (FrecAsignada fr : solucionActual.getFrecuenciasAsignadas().values()) {
             //System.out.println(fr.getId()+"\t"+fr.getFrecuencia());
         }
     }
 
-    public Solucion getSolucionActual(){
+    public Solucion getSolucionActual() {
         return solucionActual;
     }
 }

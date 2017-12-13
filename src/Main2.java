@@ -3,11 +3,11 @@
  */
 public class Main2 {
 
-    public static final int SEMILLA1 = 77361422;
-    public static final int SEMILLA2 = 77377144;
-    public static final int SEMILLA3 = 36142277;
-    public static final int SEMILLA4 = 37714477;
-    public static final int SEMILLA5 = 14227736;
+    private static final int SEMILLA1 = 77361422;
+    private static final int SEMILLA2 = 77377144;
+    private static final int SEMILLA3 = 36142277;
+    private static final int SEMILLA4 = 37714477;
+    private static final int SEMILLA5 = 14227736;
 
     public static void main(String[] args) {
 
@@ -25,8 +25,8 @@ public class Main2 {
 
         //filemanager6.imprimeDatos();
 
-        Filemanager[] fileFinal = {filemanager1, filemanager2, filemanager3, filemanager4, filemanager5, filemanager6, filemanager7,
-                filemanager8, filemanager9, filemanager10, filemanager11};
+        Filemanager[] fileFinal = {filemanager1, filemanager2, filemanager3, filemanager4, filemanager5,
+                filemanager6, filemanager7, filemanager8, filemanager9, filemanager10, filemanager11};
         int[] semillaFinal = {SEMILLA1, SEMILLA2, SEMILLA3, SEMILLA4, SEMILLA5};
 
         for (Filemanager fl : fileFinal) {
@@ -34,16 +34,15 @@ public class Main2 {
 
             for (Integer in : semillaFinal) {
 
-                AGG miAGG = new AGG(fl,in,true);
-                miAGG.ejecucion(20000,10,1.0,false);
+                AGG miAGG = new AGG(fl, in, true);
+                miAGG.ejecucion(20000, 10, 1.0, false);
                 miAGG.mostrarResultados();
-                miAGG = new AGG(fl,in,true);
-                miAGG.ejecucion(20000,10,0.1,false);
+                miAGG = new AGG(fl, in, true);
+                miAGG.ejecucion(20000, 10, 0.1, false);
                 miAGG.mostrarResultados();
-                miAGG = new AGG(fl,in,true);
-                miAGG.ejecucion(20000,10,0.1,true);
+                miAGG = new AGG(fl, in, true);
+                miAGG.ejecucion(20000, 10, 0.1, true);
                 miAGG.mostrarResultados();
-
 
                 System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>");
             }
